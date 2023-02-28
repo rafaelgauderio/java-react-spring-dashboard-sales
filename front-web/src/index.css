@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #283143;
+  --secondary-color: #1b2532;
+  --light-color: #e9e9e9;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -16,10 +22,4 @@ h4,
 h5,
 h6 {
   margin: 0;
-}
-
-:root {
-  --primary-color: #283143;
-  --secondary-color: #1b2532;
-  --light-color: #e9e9e9;
 }
