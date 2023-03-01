@@ -6,3 +6,26 @@
   padding-left: 30px;
   height: 80px;
 }
+
+.filter-input {
+  height: 50px;
+  width: 260px;
+  background-color: var(--secondary-color);
+  color: var(--gray-light-color);
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1.5px solid var(--gray-dark-color);
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+
+.filter-input::placeholder {
+  font-size: 18px;
+  color: var(--gray-light-color);
+}
+
+.filter-input:first-of-type {
+  margin-right: 50px;
+}
