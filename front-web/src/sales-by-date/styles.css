@@ -11,6 +11,7 @@
 .sales-by-date-data {
     height: 250px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -37,4 +38,8 @@
 .sales-by-date-quantity-description {
     font-size: 19px;
     color: var(--gray-less-light-color);
+}
+
+.sales-by-date-graphic {
+    width: 900px;   
 }
