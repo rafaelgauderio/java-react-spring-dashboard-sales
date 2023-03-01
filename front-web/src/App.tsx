@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="app-container base-card">
+      <div className="app-container">
         <Filter />
       </div>
     </>
