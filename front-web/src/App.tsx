@@ -1,7 +1,7 @@
 import Header from './components/header';
-import Filter from './filter';
+import Filter from './components/filter';
 import './App.css';
-import SalesByDate from './sales-by-date';
+import SalesByDate from './components/sales-by-date';
 
 function App() {
   return (
