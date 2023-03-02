@@ -1,12 +1,19 @@
 import './styles.css';
-import { ReactComponent as DoneIcon } from '../../assets/done-icon.svg';
+import React from 'react';
 
-function SalesSummaryCard() {
+// componente precisa receber parâmetros via props para ficar dinâmico
+type Props = {
+  label: string;
+  value: number;
+  icon: React.ReactNode;
+};
+
+function SalesSummaryCard({ label, value, icon }: Props) {
   return (
     <div className="sales-summary-card base-card">
-      <DoneIcon />
-      <h2 className="sales-summary-card-value">399.50</h2>
-      <span className="sales-summary-card-label">Média</span>
+      {icon}
+      <h2 className="sales-summary-card-value">{value}</h2>
+      <span className="sales-summary-card-label">{label}</span>
     </div>
   );
 }
