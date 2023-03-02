@@ -4,3 +4,9 @@
   padding-left: 55px;
   padding-right: 55px;
 }
+
+.sales-overview-container {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
