@@ -1,7 +1,8 @@
 import Header from './components/header';
-import Filter from './filter';
+import Filter from './components/filter';
 import './App.css';
-import SalesByDate from './sales-by-date';
+import SalesByDate from './components/sales-by-date';
+import SalesSummary from './components/sales-summary';
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       <div className="app-container">
         <Filter />
         <SalesByDate />
+        <div className="sales-overview-container">
+          <SalesSummary />
+        </div>
       </div>
     </>
   );
