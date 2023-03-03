@@ -1,0 +1,55 @@
+.sales-table-container {
+    margin-bottom: 60px;
+    padding-left: 50px;
+    padding-top:30px;
+    padding-bottom:30px ;    
+}
+
+.sales-table-title {
+    font-size: 21px;
+    color: var(--light-color);
+    margin-bottom: 30px;
+}
+
+.sales-table-container table {
+    width: 100%;
+    border-spacing: 0px;
+    
+}
+
+.sales-table-container table th, thead {
+    height: 50px;
+    text-align: left;    
+    font-weight: 700; 
+    border-top: 3px solid var(--gray-less-dark-color);
+    border-bottom: 2px double var(--gray-less-dark-color);  
+    font-size: 16px;           
+}
+
+.sales-table-container tbody tr:nth-child(odd) {
+   background-color: rgba(0,0,0,0.2);
+}
+
+.sales-table-container tbody tr:nth-child(even) {
+    background-color: var(--primary-color);
+}
+
+.sales-table-container table td, tbody {
+    height: 55px; 
+    border-top: 1px solid var(--gray-less-dark-color);  
+    font-size: 19px; 
+    transition: background 0.7s; 
+    transition: transform 0.7s;  
+    
+ }
+
+.sales-table-container tbody tr:hover > td {
+    background-color: var(--gray-dark-color);
+    transform: scale(1.05);
+
+
+}
+
+
+
+

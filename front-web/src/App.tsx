@@ -4,6 +4,7 @@ import './App.css';
 import SalesByDate from './components/sales-by-date';
 import SalesSummary from './components/sales-summary';
 import PieGraphicCard from './components/pie-graphic-card/indext';
+import SalesTable from './components/sales-table';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             series={[50, 35, 15]}
           />
         </div>
+        <SalesTable />
       </div>
     </>
   );
