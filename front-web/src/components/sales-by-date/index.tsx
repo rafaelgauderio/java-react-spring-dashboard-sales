@@ -1,51 +1,24 @@
 import './styles.css';
 import ReactApexChart from 'react-apexcharts';
-import { chartOptions } from './helpers';
+import { buildGraphicSeries, chartOptions } from './helpers';
 import { useEffect, useState } from 'react';
 import { makeRequest } from '../../utils/request';
+import { SalesByDate, GraphicSeriesData } from '../../types';
 
-const initialData = [
-  {
-    x: '2022-03-25',
-    y: 150,
-  },
-  {
-    x: '2022-04-25',
-    y: 200,
-  },
-  {
-    x: '2022-05-25',
-    y: 90,
-  },
-  {
-    x: '2022-06-25',
-    y: 210,
-  },
-  {
-    x: '2022-07-25',
-    y: 82,
-  },
-  {
-    x: '2022-08-25',
-    y: 250,
-  },
-  {
-    x: '2022-09-25',
-    y: 174,
-  },
-];
-
-function SalesByDate() {
-  // criar um estado para contar os valores da data e soma por vendedor
-  const [SalesByDate, setSalesByDate] = useState();
+function SalesByDateComponent() {
+  // criar um estado para contar os valores da data e soma por vendedor.
+  // iniciando o tipo com uma lista vazia
+  const [graphicSeries, setGraphicSeries] = useState<GraphicSeriesData[]>([]);
 
   // useEffect para inicializar o component
 
   useEffect(() => {
     makeRequest
-      .get('/sales/by-date?minDate=2017-01-01&maxDate=2017-01-31&gender=MALE')
+      .get<SalesByDate[]>('/sales/by-date?minDate=2017-01-01&maxDate=2017-01-31&gender=MALE')
       .then((response) => {
-        console.log(response.data);
+        const newGraphicSeries = buildGraphicSeries(response.data);
+        setGraphicSeries(newGraphicSeries);
+        //console.log(response.data);
       });
   }, []);
 
@@ -69,7 +42,7 @@ function SalesByDate() {
             type="bar"
             widht="100%"
             height={250}
-            series={[{ name: 'Vendas', data: initialData }]}
+            series={[{ name: 'Vendas', data: graphicSeries }]}
           />
         </div>
       </div>
@@ -77,4 +50,4 @@ function SalesByDate() {
   );
 }
 
-export default SalesByDate;
+export default SalesByDateComponent;
