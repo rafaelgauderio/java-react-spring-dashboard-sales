@@ -61,3 +61,10 @@ export const buildGraphicSeries = (salesByDate: SalesByDate[] = []) => {
     y: sale.sum,
   }));
 };
+
+export const sumSalesByData = (salesByDate: SalesByDate[] = []) => {
+  // compatando todos os valores de uma lista em um valor numérico
+  return salesByDate.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue.sum;
+  }, 0);
+};
