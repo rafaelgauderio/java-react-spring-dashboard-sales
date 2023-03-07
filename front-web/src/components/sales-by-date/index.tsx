@@ -1,8 +1,8 @@
 import './styles.css';
 import ReactApexChart from 'react-apexcharts';
 import { buildGraphicSeries, chartOptions, sumSalesByData } from './helpers';
-import { useEffect, useState } from 'react';
-import { makeRequest } from '../../utils/request';
+import { useEffect, useMemo, useState } from 'react';
+import { buildFilterParameters, makeRequest } from '../../utils/request';
 import { SalesByDate, GraphicSeriesData, FilterData } from '../../types';
 import { dateFormat, priceFormat } from '../../utils/formatters';
 
@@ -16,10 +16,14 @@ function SalesByDateComponent({ filterData }: Props) {
   const [graphicSeries, setGraphicSeries] = useState<GraphicSeriesData[]>([]);
   const [totalSalesSum, setTotalSalesSum] = useState(0);
 
+  // usar um array de dependências para corrigir o problema de requisições infinitar ao renderizar a tela
+  // useMemo memoriza o valor do filtro e somente quando o filtro muda e que gerada um nova referência.
+  const params = useMemo(() => buildFilterParameters(filterData), [filterData]);
+
   // useEffect para inicializar o component
   useEffect(() => {
     makeRequest
-      .get<SalesByDate[]>('/sales/by-date?minDate=2017-01-01&maxDate=2017-01-31&gender=MALE')
+      .get<SalesByDate[]>('/sales/by-date', { params })
       .then((response) => {
         const newGraphicSeries = buildGraphicSeries(response.data);
         setGraphicSeries(newGraphicSeries);
@@ -31,7 +35,7 @@ function SalesByDateComponent({ filterData }: Props) {
       .catch(() => {
         console.error('Error when try to fetch sales by date');
       });
-  }, []);
+  }, [params]);
 
   return (
     <div className="sales-by-date-container base-card">
