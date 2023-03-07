@@ -1,4 +1,5 @@
 import { ApexOptions } from 'apexcharts';
+import { SalesByDate } from '../../types';
 
 export const chartOptions = {
   legend: {
@@ -50,3 +51,20 @@ export const chartOptions = {
     },
   },
 } as ApexOptions;
+
+// conveter dados
+export const buildGraphicSeries = (salesByDate: SalesByDate[] = []) => {
+  // usar função de alta ordem map para transformar lista de SalesByDate em um objeto
+  // tem que converter para um estrutura de dados que o react-apexcharts reconheça, como data no x e numero no y
+  return salesByDate.map((sale) => ({
+    x: sale.date,
+    y: sale.sum,
+  }));
+};
+
+export const sumSalesByData = (salesByDate: SalesByDate[] = []) => {
+  // compatando todos os valores de uma lista em um valor numérico
+  return salesByDate.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue.sum;
+  }, 0);
+};

@@ -13,8 +13,7 @@
 
 .sales-table-container table {
     width: 100%;
-    border-spacing: 0px;
-    
+    border-spacing: 0px;    
 }
 
 .sales-table-container table th, thead {
@@ -39,17 +38,10 @@
     border-top: 1px solid var(--gray-less-dark-color);  
     font-size: 19px; 
     transition: background 0.7s; 
-    transition: transform 0.7s;  
-    
+    transition: transform 0.7s;      
  }
 
 .sales-table-container tbody tr:hover > td {
     background-color: var(--gray-dark-color);
     transform: scale(1.05);
-
-
 }
-
-
-
-

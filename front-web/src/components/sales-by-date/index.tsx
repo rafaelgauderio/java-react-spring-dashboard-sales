@@ -1,39 +1,31 @@
 import './styles.css';
 import ReactApexChart from 'react-apexcharts';
-import { chartOptions } from './helpers';
+import { buildGraphicSeries, chartOptions, sumSalesByData } from './helpers';
+import { useEffect, useState } from 'react';
+import { makeRequest } from '../../utils/request';
+import { SalesByDate, GraphicSeriesData } from '../../types';
+import { priceFormat } from '../../utils/formatters';
 
-const initialData = [
-  {
-    x: '2022-03-25',
-    y: 150,
-  },
-  {
-    x: '2022-04-25',
-    y: 200,
-  },
-  {
-    x: '2022-05-25',
-    y: 90,
-  },
-  {
-    x: '2022-06-25',
-    y: 210,
-  },
-  {
-    x: '2022-07-25',
-    y: 82,
-  },
-  {
-    x: '2022-08-25',
-    y: 250,
-  },
-  {
-    x: '2022-09-25',
-    y: 174,
-  },
-];
+function SalesByDateComponent() {
+  // criar um estado para contar os valores da data e soma por vendedor.
+  // iniciando o tipo com uma lista vazia
+  const [graphicSeries, setGraphicSeries] = useState<GraphicSeriesData[]>([]);
+  const [totalSalesSum, setTotalSalesSum] = useState(0);
 
-function SalesByDate() {
+  // useEffect para inicializar o component
+  useEffect(() => {
+    makeRequest
+      .get<SalesByDate[]>('/sales/by-date?minDate=2017-01-01&maxDate=2017-01-31&gender=MALE')
+      .then((response) => {
+        const newGraphicSeries = buildGraphicSeries(response.data);
+        setGraphicSeries(newGraphicSeries);
+        //console.log(response.data);
+
+        const newTotalSalesSum = sumSalesByData(response.data);
+        setTotalSalesSum(newTotalSalesSum);
+      });
+  }, []);
+
   return (
     <div className="sales-by-date-container base-card">
       <div>
@@ -42,7 +34,7 @@ function SalesByDate() {
       </div>
       <div className="sales-by-date-data">
         <div className="sales-by-date-quantity-container">
-          <h2 className="sales-by-date-quantity">597.995,00</h2>
+          <h2 className="sales-by-date-quantity">{priceFormat(totalSalesSum)}</h2>
           <span className="sales-by-date-quantity-label">Vendas no período</span>
           <span className="sales-by-date-quantity-description">
             Gráfixo ao lado exibe as vendas de todas as unidades
@@ -54,7 +46,7 @@ function SalesByDate() {
             type="bar"
             widht="100%"
             height={250}
-            series={[{ name: 'Vendas', data: initialData }]}
+            series={[{ name: 'Vendas', data: graphicSeries }]}
           />
         </div>
       </div>
@@ -62,4 +54,4 @@ function SalesByDate() {
   );
 }
 
-export default SalesByDate;
+export default SalesByDateComponent;
