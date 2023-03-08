@@ -45,7 +45,7 @@ function SalesTable({ filterData }: Props) {
               <td>{dateFormat(sale.date)}</td>
               <td>{formatGender(sale.gender)}</td>
               <td>{sale.categoryName}</td>
-              <td>{sale.storename}</td>
+              <td>{sale.storeName}</td>
               <td>{sale.paymentMethod}</td>
               <td>{priceFormat(sale.total)}</td>
             </tr>

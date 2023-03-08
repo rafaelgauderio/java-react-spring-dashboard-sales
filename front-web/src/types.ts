@@ -49,7 +49,7 @@ export type SalesData = {
   gender: Gender;
   categoryName: string;
   paymentMethod: string;
-  storename: string;
+  storeName: string;
 };
 
 export type SalesResponse = {

@@ -25,6 +25,10 @@
     font-size: 16px;           
 }
 
+.sales-table-container thead th:first-of-type, .sales-table-container tbody td:first-of-type {
+    padding-left: 25px;
+}
+
 .sales-table-container tbody tr:nth-child(odd) {
    background-color: rgba(0,0,0,0.2);
 }
