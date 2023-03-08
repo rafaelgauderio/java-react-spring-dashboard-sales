@@ -24,3 +24,13 @@ export type SalesSummaryData = {
   avg: number;
   count: number;
 };
+
+export type SalesByStoreData = {
+  storeName: string;
+  sum: number;
+};
+
+export type PieGraphicConfig = {
+  series: number[];
+  labels: string[];
+};

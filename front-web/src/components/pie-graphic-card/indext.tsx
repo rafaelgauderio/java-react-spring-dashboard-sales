@@ -3,12 +3,13 @@ import ReactApexChart from 'react-apexcharts';
 import { buildPieGraphicConfig } from './helpers';
 
 type Props = {
-  series: number[];
-  labels: string[];
+  series?: number[];
+  labels?: string[];
   name: string;
 };
 
-function PieGraphicCard({ series, labels, name }: Props) {
+// iniciar o labels e series como array vazio
+function PieGraphicCard({ series = [], labels = [], name }: Props) {
   return (
     <div className="pie-graphic-card base-card">
       <ReactApexChart
