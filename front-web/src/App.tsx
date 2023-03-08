@@ -64,7 +64,7 @@ function App() {
             series={salesByPaymontmethodData?.series}
           />
         </div>
-        <SalesTable />
+        <SalesTable filterData={filterData} />
       </div>
     </>
   );

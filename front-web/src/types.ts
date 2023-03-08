@@ -39,3 +39,19 @@ export type SalesByPaymentMethodData = {
   sum: number;
   description: string;
 };
+
+// estrutura de dados que fica dentro do content
+export type SalesData = {
+  id: number;
+  date: string;
+  volume: number;
+  total: number;
+  gender: Gender;
+  categoryName: string;
+  paymentMethod: string;
+  storename: string;
+};
+
+export type SalesResponse = {
+  content: SalesData[];
+};

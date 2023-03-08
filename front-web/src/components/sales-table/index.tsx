@@ -1,6 +1,28 @@
+import { useEffect, useMemo, useState } from 'react';
+import { FilterData, SalesData, SalesResponse } from '../../types';
+import { dateFormat, formatGender, priceFormat } from '../../utils/formatters';
+import { buildFilterParameters, makeRequest } from '../../utils/request';
 import './styles.css';
 
-function SalesTable() {
+type Props = {
+  filterData?: FilterData;
+};
+
+function SalesTable({ filterData }: Props) {
+  const params = useMemo(() => buildFilterParameters(filterData), [filterData]);
+  const [salesData, setSalesData] = useState<SalesData[]>([]);
+
+  useEffect(() => {
+    makeRequest
+      .get<SalesResponse>('/sales', { params })
+      .then((response) => {
+        setSalesData(response.data.content);
+      })
+      .catch(() => {
+        console.error('Erro to fetch sales data');
+      });
+  }, [params]);
+
   return (
     <div className="sales-table-container base-card">
       <h2 className="sales-table-title">Vendas recentes</h2>
@@ -17,60 +39,17 @@ function SalesTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1995</td>
-            <td>Masculino</td>
-            <td>Celular Sansung</td>
-            <td>Rio de Janeiro</td>
-            <td>Débito</td>
-            <td>R$ 120.974,00</td>
-          </tr>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1983</td>
-            <td>Masculino</td>
-            <td>Celular Lumina</td>
-            <td>São Paulo</td>
-            <td>Crédito</td>
-            <td>R$ 150.853,00</td>
-          </tr>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1995</td>
-            <td>Masculino</td>
-            <td>Celular Sansung</td>
-            <td>Rio de Janeiro</td>
-            <td>Débito</td>
-            <td>R$ 120.974,00</td>
-          </tr>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1983</td>
-            <td>Masculino</td>
-            <td>Celular Lumina</td>
-            <td>São Paulo</td>
-            <td>Crédito</td>
-            <td>R$ 150.853,00</td>
-          </tr>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1995</td>
-            <td>Masculino</td>
-            <td>Celular Sansung</td>
-            <td>Rio de Janeiro</td>
-            <td>Débito</td>
-            <td>R$ 120.974,00</td>
-          </tr>
-          <tr>
-            <td>#8839</td>
-            <td>17/12/1983</td>
-            <td>Masculino</td>
-            <td>Celular Lumina</td>
-            <td>São Paulo</td>
-            <td>Crédito</td>
-            <td>R$ 150.853,00</td>
-          </tr>
+          {salesData.map((sale) => (
+            <tr key={sale.id}>
+              <td>#{sale.id}</td>
+              <td>{dateFormat(sale.date)}</td>
+              <td>{formatGender(sale.gender)}</td>
+              <td>{sale.categoryName}</td>
+              <td>{sale.storename}</td>
+              <td>{sale.paymentMethod}</td>
+              <td>{priceFormat(sale.total)}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
