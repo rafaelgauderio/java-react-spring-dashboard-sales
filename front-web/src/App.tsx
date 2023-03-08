@@ -22,7 +22,7 @@ function App() {
         <Filter onFilterChange={onFilterChange} />
         <SalesByDate filterData={filterData} />
         <div className="sales-overview-container">
-          <SalesSummary />
+          <SalesSummary filterData={filterData} />
           <PieGraphicCard
             name="Lojas"
             labels={['Foz do Iguaçu', 'Casvavel', 'Curitiba', 'Londrina']}

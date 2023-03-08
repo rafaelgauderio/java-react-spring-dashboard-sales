@@ -4,7 +4,7 @@ import React from 'react';
 // componente precisa receber parâmetros via props para ficar dinâmico
 type Props = {
   label: string;
-  value: number;
+  value: number | string;
   icon: React.ReactNode;
 };
 
