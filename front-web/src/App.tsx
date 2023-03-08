@@ -6,13 +6,14 @@ import SalesSummary from './components/sales-summary';
 import PieGraphicCard from './components/pie-graphic-card/indext';
 import SalesTable from './components/sales-table';
 import { useEffect, useMemo, useState } from 'react';
-import { FilterData, PieGraphicConfig, SalesByStoreData } from './types';
+import { FilterData, PieGraphicConfig, SalesByPaymentMethodData, SalesByStoreData } from './types';
 import { buildFilterParameters, makeRequest } from './utils/request';
-import { buildSalesByStoreGraphic } from './helpers';
+import { buildSalesByPaymentMethodGraphic, buildSalesByStoreGraphic } from './helpers';
 
 function App() {
   const [filterData, setFilterData] = useState<FilterData>();
   const [salesByStoreData, setSalesByStoreData] = useState<PieGraphicConfig>();
+  const [salesByPaymontmethodData, setSalesByPaymontMethodData] = useState<PieGraphicConfig>();
 
   const params = useMemo(() => buildFilterParameters(filterData), [filterData]);
 
@@ -25,6 +26,18 @@ function App() {
       })
       .catch(() => {
         console.error('Erros to fetch sales by store pie graphic');
+      });
+  }, [params]);
+
+  useEffect(() => {
+    makeRequest
+      .get<SalesByPaymentMethodData[]>('sales/by-payment-method', { params })
+      .then((resposta) => {
+        const newSalesByPaymentMethodData = buildSalesByPaymentMethodGraphic(resposta.data);
+        setSalesByPaymontMethodData(newSalesByPaymentMethodData);
+      })
+      .catch(() => {
+        console.error('Erros to fetch sales by payment method pie graphic');
       });
   }, [params]);
 
@@ -47,8 +60,8 @@ function App() {
           />
           <PieGraphicCard
             name="Pagamento"
-            labels={['Crédito', 'Débito', 'Dinheiro']}
-            series={[50, 35, 15]}
+            labels={salesByPaymontmethodData?.labels}
+            series={salesByPaymontmethodData?.series}
           />
         </div>
         <SalesTable />

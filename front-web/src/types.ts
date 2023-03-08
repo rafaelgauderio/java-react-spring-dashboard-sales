@@ -34,3 +34,8 @@ export type PieGraphicConfig = {
   series: number[];
   labels: string[];
 };
+
+export type SalesByPaymentMethodData = {
+  sum: number;
+  description: string;
+};
