@@ -8,8 +8,15 @@ type Props = {
   filterData?: FilterData;
 };
 
+const extraParameters = {
+  page: 0,
+  size: 24,
+  sort: 'date,desc',
+};
+
+// somente passar como dependência do useMemo parâmetros mutáveis
 function SalesTable({ filterData }: Props) {
-  const params = useMemo(() => buildFilterParameters(filterData), [filterData]);
+  const params = useMemo(() => buildFilterParameters(filterData, extraParameters), [filterData]);
   const [salesData, setSalesData] = useState<SalesData[]>([]);
 
   useEffect(() => {
@@ -45,7 +52,7 @@ function SalesTable({ filterData }: Props) {
               <td>{dateFormat(sale.date)}</td>
               <td>{formatGender(sale.gender)}</td>
               <td>{sale.categoryName}</td>
-              <td>{sale.storename}</td>
+              <td>{sale.storeName}</td>
               <td>{sale.paymentMethod}</td>
               <td>{priceFormat(sale.total)}</td>
             </tr>
