@@ -8,8 +8,15 @@ type Props = {
   filterData?: FilterData;
 };
 
+const extraParameters = {
+  page: 0,
+  size: 24,
+  sort: 'date,desc',
+};
+
+// somente passar como dependência do useMemo parâmetros mutáveis
 function SalesTable({ filterData }: Props) {
-  const params = useMemo(() => buildFilterParameters(filterData), [filterData]);
+  const params = useMemo(() => buildFilterParameters(filterData, extraParameters), [filterData]);
   const [salesData, setSalesData] = useState<SalesData[]>([]);
 
   useEffect(() => {

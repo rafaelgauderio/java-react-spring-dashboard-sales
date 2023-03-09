@@ -37,7 +37,7 @@ export const buildPieGraphicConfig = (labels: string[] = [], name: string) => {
       pie: {
         size: 400,
         donut: {
-          size: '80%',
+          size: '70%',
           labels: {
             show: true,
             name: {
